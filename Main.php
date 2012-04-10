@@ -6,16 +6,15 @@ use FileSystemUtil as FS;
 
 class Main {
 
-  private static $destinationPath;
+  private static $destinationPath = "__transformed";
 
   private function __construct() {}
 
-  public static function run( $sourcePath, $destinationPath, $navXmlFileName ) {
-    self::$destinationPath = $destinationPath;
-    if( FS::isDir( $destinationPath ) ) {
-      FS::removeDirRecursively( $destinationPath );
+  public static function run( $sourcePath, $navXmlFileName ) {
+    if( FS::isDir( self::$destinationPath ) ) {
+      FS::removeDirRecursively( self::$destinationPath );
     }
-    FS::createDir( $destinationPath );
+    FS::createDir( self::$destinationPath );
     self::processNavigationXml( $navXmlFileName );
     self::processHelpDirectory( $sourcePath );
   }
